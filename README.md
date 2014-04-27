@@ -1,6 +1,6 @@
 # R Scripting
 
-'''NB: This library is an experimental work in progress. Not yet functional!'''
+__NB: This library is an experimental work in progress. Not yet functional!__
 
 This library provides a
 [JSR-223-compliant](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform)
