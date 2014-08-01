@@ -1,8 +1,9 @@
 /*
  * #%L
- * An adapter of the R language to the ImageJ scripting interfaces
+ * JSR-223-compliant R scripting language plugin.
  * %%
- * Copyright (C) 2011 - 2014 SciJava
+ * Copyright (C) 2011 - 2014 Board of Regents of the University of
+ * Wisconsin-Madison.
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
