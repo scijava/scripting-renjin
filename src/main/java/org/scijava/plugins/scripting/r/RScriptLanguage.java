@@ -38,7 +38,7 @@ import org.scijava.script.ScriptLanguage;
  * @author Curtis Rueden
  * @see ScriptEngine
  */
-@Plugin(type = ScriptLanguage.class)
+@Plugin(type = ScriptLanguage.class, name = "R")
 public class RScriptLanguage extends AbstractScriptLanguage {
 
 	@Override
