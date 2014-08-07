@@ -52,11 +52,6 @@ public class RScriptLanguage extends AbstractScriptLanguage {
 	}
 
 	@Override
-	public String getLanguageName() {
-		return "R";
-	}
-
-	@Override
 	public ScriptEngine getScriptEngine() {
 		return new RScriptEngine(getContext());
 	}
