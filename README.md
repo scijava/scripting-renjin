@@ -28,8 +28,6 @@ version = paste("[", label, "] ", R.version.string, sep = "")
 
 Outstanding issues:
 
-* Reconcile (?) with updated scripting framework
-* Deploy Rserve JARs to ImageJ Maven repository
 * Fix bug where `DisplayPostprocessor` thinks output is null
 * Support multiple output values
 * Compare this Rserve-based solution to one using rJava
