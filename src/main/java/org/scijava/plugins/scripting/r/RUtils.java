@@ -26,8 +26,6 @@ package org.scijava.plugins.scripting.r;
 import org.rosuda.REngine.REXP;
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.REngineException;
-import org.rosuda.REngine.RFactor;
-import org.rosuda.REngine.RList;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 import org.scijava.util.ClassUtils;
@@ -106,68 +104,19 @@ public final class RUtils {
 	}
 
 	/**
-	 * Extracts a value of the given type from the specified R variable.
+	 * Extracts a value from the specified R variable.
 	 * 
-	 * @param type The Java type of the value to extract.
 	 * @param value The R value to decode.
 	 */
-	public static Object getVar(final Class<?> type, final REXP value)
-		throws REXPMismatchException
+	public static Object getVar(final REXP value)
 	{
-		// primitive types
-		if (ClassUtils.isBoolean(type)) {
-			return value.asInteger() != 0;
+		try {
+			return value.asNativeJavaObject();
 		}
-		if (ClassUtils.isByte(type)) {
-			return (byte) value.asInteger();
+		catch (final REXPMismatchException exc) {
+			//throw new IllegalArgumentException("Incompatible R expression: " + object);
+			return value.toString();
 		}
-		if (ClassUtils.isCharacter(type)) {
-			final String s = value.asString();
-			return s.isEmpty() ? '\0' : s.charAt(0);
-		}
-		if (ClassUtils.isDouble(type)) {
-			return value.asDouble();
-		}
-		if (ClassUtils.isInteger(type)) {
-			return value.asInteger();
-		}
-		if (ClassUtils.isFloat(type)) {
-			return (float) value.asDouble();
-		}
-		if (ClassUtils.isLong(type)) {
-			return (long) value.asInteger();
-		}
-		if (ClassUtils.isShort(type)) {
-			return (short) value.asInteger();
-		}
-		// array types
-		if (type == byte[].class) {
-			return value.asBytes();
-		}
-		if (type == double[][].class) {
-			return value.asDoubleMatrix();
-		}
-		if (type == double[].class) {
-			return value.asDoubles();
-		}
-		if (type == int[].class) {
-			return value.asIntegers();
-		}
-		// strings
-		if (type == String.class) {
-			return value.asString();
-		}
-		if (type == String[].class) {
-			return value.asStrings();
-		}
-		// other objects
-		if (type == RFactor.class) {
-			return value.asFactor();
-		}
-		if (type == RList.class) {
-			return value.asList();
-		}
-		return value.asNativeJavaObject();
 	}
 
 }
