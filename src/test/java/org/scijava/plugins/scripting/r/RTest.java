@@ -57,7 +57,6 @@ public class RTest {
 		final String script = "result = R.version.string\n";
 		final ScriptModule m = scriptService.run("version.r", script, true).get();
 		final Object result = m.getReturnValue();
-		// NB: Result is of type org.python.core.PyInteger.
 		assertTrue(result.toString().startsWith("R version "));
 	}
 
