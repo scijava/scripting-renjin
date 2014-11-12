@@ -28,6 +28,7 @@ import java.util.List;
 
 import javax.script.ScriptEngine;
 
+import org.rosuda.REngine.REXP;
 import org.scijava.plugin.Plugin;
 import org.scijava.script.AbstractScriptLanguage;
 import org.scijava.script.ScriptLanguage;
@@ -54,6 +55,14 @@ public class RScriptLanguage extends AbstractScriptLanguage {
 	@Override
 	public ScriptEngine getScriptEngine() {
 		return new RScriptEngine(getContext());
+	}
+
+	@Override
+	public Object decode(final Object object) {
+		if (object instanceof REXP) {
+			return RUtils.getVar((REXP) object);
+		}
+		throw new IllegalArgumentException("Object is not an R expression");
 	}
 
 }
