@@ -54,6 +54,18 @@ public class RTest {
 	{
 		final Context context = new Context(ScriptService.class);
 		final ScriptService scriptService = context.getService(ScriptService.class);
+		final String script = "1 + 2";
+		final ScriptModule m = scriptService.run("add.r", script, true).get();
+		final Object result = m.getReturnValue();
+		assertEquals("3", result.toString());
+	}
+
+	@Test
+	public void testString() throws InterruptedException, ExecutionException,
+		IOException, ScriptException
+	{
+		final Context context = new Context(ScriptService.class);
+		final ScriptService scriptService = context.getService(ScriptService.class);
 		final String script = "result = R.version.string\n";
 		final ScriptModule m = scriptService.run("version.r", script, true).get();
 		final Object result = m.getReturnValue();
