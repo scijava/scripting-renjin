@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.scijava</groupId>
 		<artifactId>pom-scijava</artifactId>
-		<version>3.0</version>
+		<version>5.0</version>
 		<relativePath />
 	</parent>
 
@@ -71,6 +71,10 @@
 		<url>https://jenkins.imagej.net/job/scripting-R/</url>
 	</ciManagement>
 
+	<properties>
+		<R.version>0.6-8.1</R.version>
+	</properties>
+
 	<dependencies>
 		<!-- SciJava dependencies -->
 		<dependency>
@@ -78,16 +82,16 @@
 			<artifactId>scijava-common</artifactId>
 		</dependency>
 
-		<!-- Third-party dependencies -->
+		<!-- Third party dependencies -->
 		<dependency>
 			<groupId>net.rforge</groupId>
 			<artifactId>REngine</artifactId>
-			<version>0.6-8.1</version>
+			<version>${R.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.rforge</groupId>
 			<artifactId>Rserve</artifactId>
-			<version>0.6-8.1</version>
+			<version>${R.version}</version>
 		</dependency>
 
 		<!-- Test dependencies -->
