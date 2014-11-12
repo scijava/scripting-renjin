@@ -24,61 +24,76 @@
 package org.scijava.plugins.scripting.r;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 import javax.script.Bindings;
 
+import org.rosuda.REngine.REngineException;
 import org.rosuda.REngine.Rserve.RConnection;
+import org.rosuda.REngine.Rserve.RserveException;
+import org.scijava.log.LogService;
 
 public class RBindings implements Bindings {
 
-	private final Map<String, Object> map = new HashMap<String, Object>();
 	private final RConnection rc;
+	private final LogService log;
 
-	public RBindings(final RConnection rc) {
+	public RBindings(final RConnection rc, final LogService log) {
 		this.rc = rc;
+		this.log = log;
 	}
 
 	@Override
 	public int size() {
-		return map.size();
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return map.isEmpty();
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean containsValue(Object value) {
-		return map.containsValue(value);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void clear() {
-		map.clear();
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Set<String> keySet() {
-		return map.keySet();
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Collection<Object> values() {
-		return map.values();
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Set<Entry<String, Object>> entrySet() {
-		return map.entrySet();
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Object put(String name, Object value) {
-		return map.put(name, value);
+		// FIXME: Passing value.getClass() here is probably not good enough...
+		try {
+			RUtils.setVar(rc, name, value.getClass(), value);
+		}
+		catch (final RserveException exc) {
+			log.error(exc);
+			return null;
+		}
+		catch (final REngineException exc) {
+			log.error(exc);
+			return null;
+		}
+		return value;
 	}
 
 	@Override
@@ -90,17 +105,26 @@ public class RBindings implements Bindings {
 
 	@Override
 	public boolean containsKey(Object key) {
-		return map.containsKey(key);
+		return get(key) != null;
 	}
 
 	@Override
 	public Object get(Object key) {
-		return map.get(key);
+		try {
+			return rc.get(key.toString(), null, true);
+		}
+		catch (final REngineException exc) {
+			log.error(exc);
+			return null;
+		}
 	}
 
 	@Override
 	public Object remove(Object key) {
-		return map.remove(key);
+		final Object previous = get(key);
+		// FIXME: Put doesn't work with nulls due to value.getClass() call.
+		put(key.toString(), null);
+		return previous;
 	}
 
 }

@@ -63,7 +63,7 @@ public class RScriptEngine extends AbstractScriptEngine {
 			c = null;
 		}
 		rc = c;
-		engineScopeBindings = new RBindings(rc);
+		engineScopeBindings = new RBindings(rc, log);
 	}
 
 	@Override
