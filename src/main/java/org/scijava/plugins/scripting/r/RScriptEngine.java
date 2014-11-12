@@ -28,8 +28,6 @@ import java.io.Reader;
 import javax.script.ScriptException;
 
 import org.rosuda.REngine.REXP;
-import org.rosuda.REngine.REXPMismatchException;
-import org.rosuda.REngine.REngineException;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 import org.scijava.Context;
@@ -83,31 +81,6 @@ public class RScriptEngine extends AbstractScriptEngine {
 	public Object eval(final Reader reader) throws ScriptException {
 		// FIXME
 		return null;
-	}
-
-	// -- Helper methods --
-
-	/** Assigns the given value to a variable in R. */
-	private void set(final String name, final Class<?> type, final Object value) {
-		try {
-			RUtils.setVar(rc, name, type, value);
-		}
-		catch (final RserveException exc) {
-			log.error(exc);
-		}
-		catch (final REngineException exc) {
-			log.error(exc);
-		}
-	}
-
-	/** Extracts a value of the given type from the specified R variable. */
-	private Object get(final Class<?> type, final REXP value) {
-		try {
-			return RUtils.getVar(type, value);
-		}
-		catch (final REXPMismatchException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 }
