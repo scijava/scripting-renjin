@@ -2,7 +2,7 @@
  * #%L
  * JSR-223-compliant R scripting language plugin.
  * %%
- * Copyright (C) 2011 - 2014 Board of Regents of the University of
+ * Copyright (C) 2011 - 2015 Board of Regents of the University of
  * Wisconsin-Madison.
  * %%
  * This program is free software: you can redistribute it and/or modify
