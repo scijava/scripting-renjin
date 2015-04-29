@@ -1,4 +1,4 @@
-![](http://jenkins.imagej.net/job/scripting-R/lastBuild/badge/icon)
+[![](http://jenkins.imagej.net/job/scripting-R/lastBuild/badge/icon)](http://jenkins.imagej.net/job/scripting-R/)
 
 # R Scripting
 
