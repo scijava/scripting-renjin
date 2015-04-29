@@ -1,3 +1,5 @@
+![](http://jenkins.imagej.net/job/scripting-R/lastBuild/badge/icon)
+
 # R Scripting
 
 __NB: This library is an experimental work in progress. Not yet functional!__
