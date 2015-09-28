@@ -54,7 +54,7 @@ public class RTest {
 	{
 		final Context context = new Context(ScriptService.class);
 		final ScriptService scriptService = context.getService(ScriptService.class);
-		final String script = "1 + 2";
+		final String script = "as.integer(1) + as.integer(2)";
 		final ScriptModule m = scriptService.run("add.r", script, true).get();
 		final Object result = m.getReturnValue();
 		assertEquals("3", result.toString());
