@@ -72,7 +72,8 @@
 	</ciManagement>
 
 	<properties>
-		<R.version>0.6-8.1</R.version>
+		<REngine.version>2.1.0</REngine.version>
+		<Rserve.version>1.8.1</Rserve.version>
 	</properties>
 
 	<dependencies>
@@ -84,14 +85,14 @@
 
 		<!-- Third party dependencies -->
 		<dependency>
-			<groupId>net.rforge</groupId>
+			<groupId>org.rosuda.REngine</groupId>
 			<artifactId>REngine</artifactId>
-			<version>${R.version}</version>
+			<version>${REngine.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>net.rforge</groupId>
+			<groupId>org.rosuda.REngine</groupId>
 			<artifactId>Rserve</artifactId>
-			<version>${R.version}</version>
+			<version>${Rserve.version}</version>
 		</dependency>
 
 		<!-- Test dependencies -->
