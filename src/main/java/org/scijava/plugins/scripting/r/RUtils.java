@@ -115,7 +115,29 @@ public final class RUtils {
 	public static Object getVar(final REXP value)
 	{
 		try {
-			return value.asNativeJavaObject();
+			final Object rVal = value.asNativeJavaObject();
+			// R has no concept of scalars, so if we have a length 1 int or double
+			// array we should unwrap it
+			if (rVal == null) return null;
+
+			if (rVal instanceof double[]) {
+				final double[] dArray = (double[]) rVal;
+				if (dArray.length == 1) return dArray[0];
+			}
+			else if (rVal instanceof int[]) {
+				final int[] iArray = (int[]) rVal;
+				if (iArray.length == 1) return iArray[0];
+			}
+			else if (rVal instanceof Object[]) {
+				final Object[] oArray = (Object[]) rVal;
+				if (oArray.length == 1) return oArray[0];
+			}
+			else if (rVal instanceof String[]) {
+				final String[] sArray = (String[]) rVal;
+				if (sArray.length == 1) return sArray[0];
+			}
+
+			return rVal;
 		}
 		catch (final REXPMismatchException exc) {
 			//throw new IllegalArgumentException("Incompatible R expression: " + object);
