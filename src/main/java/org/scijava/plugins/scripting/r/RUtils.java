@@ -99,7 +99,11 @@ public final class RUtils {
 			c.assign(name, (REXP) value);
 		}
 		else {
-			throw new IllegalArgumentException("Unsupported type: " + type.getName());
+			// For now we can not set these, as the RConnection engine does not
+			// support REXPJavaReference. We need a JRI engine of some sort but
+			// not sure how to use one yet
+			// final REXP wrapper = new REXPJavaReference(value);
+			// e.assign(name, wrapper);
 		}
 	}
 
