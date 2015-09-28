@@ -36,6 +36,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
 import org.junit.Test;
+import org.rosuda.REngine.REXP;
 import org.scijava.Context;
 import org.scijava.script.ScriptLanguage;
 import org.scijava.script.ScriptModule;
@@ -43,7 +44,7 @@ import org.scijava.script.ScriptService;
 
 /**
  * R unit tests.
- * 
+ *
  * @author Curtis Rueden
  */
 public class RTest {
@@ -81,8 +82,8 @@ public class RTest {
 		final ScriptEngine engine = language.getScriptEngine();
 		assertEquals(RScriptEngine.class, engine.getClass());
 		engine.put("hello", 17);
-		assertEquals("17", engine.eval("hello").toString());
-		assertEquals("17", engine.get("hello").toString());
+		assertEquals(17, RUtils.getVar((REXP) engine.eval("hello")));
+		assertEquals(17, RUtils.getVar((REXP) engine.get("hello")));
 
 		final Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
 		bindings.clear();
