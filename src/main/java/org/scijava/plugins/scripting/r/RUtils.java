@@ -55,22 +55,22 @@ public final class RUtils {
 			final int el = t != null && t.booleanValue() ? 1 : 0;
 			c.assign(name, new int[] { el });
 		}
-		if (ClassUtils.isByte(type)) {
+		else if (ClassUtils.isByte(type)) {
 			final Byte t = (Byte) value;
 			final byte el = t == null ? 0 : t.byteValue();
 			c.assign(name, new byte[] { el });
 		}
-		if (ClassUtils.isCharacter(type)) {
+		else if (ClassUtils.isCharacter(type)) {
 			final Character t = (Character) value;
 			final String s = t == null ? "" : t.toString();
 			c.assign(name, s);
 		}
-		if (ClassUtils.isDouble(type) || ClassUtils.isFloat(type)) {
+		else if (ClassUtils.isDouble(type) || ClassUtils.isFloat(type)) {
 			final Number t = (Number) value;
 			final double el = t == null ? 0 : t.doubleValue();
 			c.assign(name, new double[] { el });
 		}
-		if (ClassUtils.isInteger(type) || ClassUtils.isLong(type) ||
+		else if (ClassUtils.isInteger(type) || ClassUtils.isLong(type) ||
 			ClassUtils.isShort(type))
 		{
 			final Number t = (Number) value;
@@ -78,7 +78,7 @@ public final class RUtils {
 			c.assign(name, new int[] { el });
 		}
 		// array types
-		if (type == byte[].class) {
+		else if (type == byte[].class) {
 			c.assign(name, (byte[]) value);
 		}
 		else if (type == double[].class) {
