@@ -23,108 +23,170 @@
 
 package org.scijava.plugins.scripting.r;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
 import javax.script.Bindings;
 
+import org.rosuda.REngine.REXPMismatchException;
+import org.rosuda.REngine.REngine;
 import org.rosuda.REngine.REngineException;
-import org.rosuda.REngine.Rserve.RConnection;
-import org.rosuda.REngine.Rserve.RserveException;
 import org.scijava.log.LogService;
 
 public class RBindings implements Bindings {
 
-	private final RConnection rc;
+	private final REngine re;
 	private final LogService log;
 
-	public RBindings(final RConnection rc, final LogService log) {
-		this.rc = rc;
+	private final Set<String> keys = new LinkedHashSet<String>();
+	private final Set<Object> values = new LinkedHashSet<Object>();
+	private final Map<String, Object> entries =
+		new LinkedHashMap<String, Object>();
+
+	public RBindings(final REngine rc, final LogService log) {
+		this.re = rc;
 		this.log = log;
 	}
 
 	@Override
 	public int size() {
-		throw new UnsupportedOperationException();
+		return keySet().size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		throw new UnsupportedOperationException();
+		return keySet().isEmpty();
 	}
 
 	@Override
-	public boolean containsValue(Object value) {
-		throw new UnsupportedOperationException();
+	public boolean containsValue(final Object value) {
+		return values().contains(value);
 	}
 
 	@Override
 	public void clear() {
-		throw new UnsupportedOperationException();
+		try {
+			re.parseAndEval("rm(list=ls())");
+		}
+		catch (final REngineException exc) {
+			log.error(exc);
+		}
+		catch (final REXPMismatchException exc) {
+			log.error(exc);
+		}
 	}
 
 	@Override
 	public Set<String> keySet() {
-		throw new UnsupportedOperationException();
+		keys.clear();
+		keys.addAll(Arrays.asList(getVars()));
+		return keys;
 	}
 
 	@Override
 	public Collection<Object> values() {
-		throw new UnsupportedOperationException();
+		values.clear();
+		for (final String key : keySet()) {
+			final Object v = get(key);
+			if (v != null) values.add(get(key));
+		}
+		return values;
 	}
 
 	@Override
 	public Set<Entry<String, Object>> entrySet() {
-		throw new UnsupportedOperationException();
+		entries.clear();
+		for (final String key : keySet()) {
+			final Object v = get(key);
+			if (v != null) entries.put(key, v);
+		}
+		return entries.entrySet();
 	}
 
 	@Override
-	public Object put(String name, Object value) {
+	public Object put(final String name, final Object value) {
 		// FIXME: Passing value.getClass() here is probably not good enough...
 		try {
-			RUtils.setVar(rc, name, value.getClass(), value);
-		}
-		catch (final RserveException exc) {
-			log.error(exc);
-			return null;
+			RUtils.setVar(re, name, value.getClass(), value);
 		}
 		catch (final REngineException exc) {
 			log.error(exc);
-			return null;
 		}
+		catch (final REXPMismatchException exc) {}
+
 		return value;
 	}
 
 	@Override
-	public void putAll(Map<? extends String, ? extends Object> toMerge) {
+	public void putAll(final Map<? extends String, ? extends Object> toMerge) {
 		for (final String key : toMerge.keySet()) {
 			put(key, toMerge.get(key));
 		}
 	}
 
 	@Override
-	public boolean containsKey(Object key) {
+	public boolean containsKey(final Object key) {
 		return get(key) != null;
 	}
 
 	@Override
-	public Object get(Object key) {
+	public Object get(final Object key) {
+		// If we use an RConnection to query a symbol that doesn't exist we
+		// get an exception from RServe. Best to minimize this if we know the
+		// symbol in question doesn't exist.
+		if (!keySet().contains(key)) return null;
+
 		try {
-			return rc.get(key.toString(), null, true);
+			return re.get(key.toString(), null, true);
+		}
+		catch (final REXPMismatchException exc) {
+			log.error(exc);
+			return null;
 		}
 		catch (final REngineException exc) {
 			log.error(exc);
 			return null;
 		}
+
 	}
 
 	@Override
-	public Object remove(Object key) {
+	public Object remove(final Object key) {
 		final Object previous = get(key);
-		// FIXME: Put doesn't work with nulls due to value.getClass() call.
-		put(key.toString(), null);
+
+		try {
+			re.parseAndEval("rm(" + key.toString() + ")");
+		}
+		catch (final REngineException exc) {
+			log.error(exc);
+		}
+		catch (final REXPMismatchException exc) {
+			log.error(exc);
+		}
+
 		return previous;
 	}
 
+	// -- Helper methods --
+
+	/**
+	 * @return All declared variables from R, as a String array.
+	 */
+	private String[] getVars() {
+		try {
+			return re.parseAndEval("ls()").asStrings();
+		}
+		catch (final REXPMismatchException exc) {
+			log.error(exc);
+		}
+		catch (final REngineException exc) {
+			log.error(exc);
+		}
+
+		return new String[0];
+	}
 }

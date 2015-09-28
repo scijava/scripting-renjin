@@ -25,29 +25,30 @@ package org.scijava.plugins.scripting.r;
 
 import org.rosuda.REngine.REXP;
 import org.rosuda.REngine.REXPMismatchException;
+import org.rosuda.REngine.REngine;
 import org.rosuda.REngine.REngineException;
-import org.rosuda.REngine.Rserve.RConnection;
-import org.rosuda.REngine.Rserve.RserveException;
 import org.scijava.util.ClassUtils;
 
 /**
  * Utility methods for use with R scripts.
- * 
+ *
  * @author Curtis Rueden
  */
 public final class RUtils {
 
 	/**
 	 * Assigns the given value to a variable in R.
-	 * 
+	 *
 	 * @param c The R connection to use to assign the value.
 	 * @param name The name of the R variable to assign.
 	 * @param type The Java type of the variable to assign.
 	 * @param value The value to pass to R.
+	 * @throws REngineException
+	 * @throws REXPMismatchException
 	 */
-	public static void setVar(final RConnection c, final String name,
-		final Class<?> type, final Object value) throws RserveException,
-		REngineException
+	public static void setVar(final REngine c, final String name,
+		final Class<?> type, final Object value) throws REngineException,
+		REXPMismatchException
 	{
 		// primitive types
 		if (ClassUtils.isBoolean(type)) {
@@ -109,11 +110,10 @@ public final class RUtils {
 
 	/**
 	 * Extracts a value from the specified R variable.
-	 * 
+	 *
 	 * @param value The R value to decode.
 	 */
-	public static Object getVar(final REXP value)
-	{
+	public static Object getVar(final REXP value) {
 		try {
 			final Object rVal = value.asNativeJavaObject();
 			// R has no concept of scalars, so if we have a length 1 int or double
@@ -140,7 +140,8 @@ public final class RUtils {
 			return rVal;
 		}
 		catch (final REXPMismatchException exc) {
-			//throw new IllegalArgumentException("Incompatible R expression: " + object);
+			// throw new IllegalArgumentException("Incompatible R expression: " +
+			// object);
 			return value.toString();
 		}
 	}

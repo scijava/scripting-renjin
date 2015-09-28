@@ -23,11 +23,17 @@
 
 package org.scijava.plugins.scripting.r;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 
 import javax.script.ScriptException;
 
 import org.rosuda.REngine.REXP;
+import org.rosuda.REngine.REXPMismatchException;
+import org.rosuda.REngine.REngine;
+import org.rosuda.REngine.REngineException;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 import org.scijava.Context;
@@ -48,39 +54,104 @@ public class RScriptEngine extends AbstractScriptEngine {
 	@Parameter
 	private LogService log;
 
-	private final RConnection rc;
+	private final REngine rc;
+
+	private static final String COMMENT = "#";
 
 	public RScriptEngine(final Context context) {
 		context.inject(this);
-		RConnection c;
+		REngine c;
 		try {
 			c = new RConnection();
+			if (!((RConnection) c).isConnected()) c = null;
 		}
 		catch (final RserveException exc) {
 			log.error(exc);
 			c = null;
 		}
-		rc = c;
-		engineScopeBindings = new RBindings(rc, log);
+
+		if (c != null) {
+			rc = c;
+			engineScopeBindings = new RBindings(rc, log);
+		}
+		else {
+			//FIXME we want a way to abort here and say the script language is
+			// not available..
+			rc = null;
+			engineScopeBindings = null;
+		}
 	}
 
 	@Override
 	public Object eval(final String script) throws ScriptException {
 		try {
-			// execute script
-			final REXP result = rc.eval(script);
-			return result;
+			return eval(new StringReader(script));
 		}
-		catch (final RserveException e) {
-			log.error(e);
+		catch (final Exception e) {
+			throw new ScriptException(e);
 		}
-		return null;
 	}
 
 	@Override
 	public Object eval(final Reader reader) throws ScriptException {
-		// FIXME
-		return null;
+
+		if (rc == null) {
+			log.error("No RServe connection found. Please ensure a local "
+				+ "RServe connection is available.\n\t"
+				+ "See http://www.imagej.net/R for further instructions.");
+			return null;
+		}
+
+		final BufferedReader bufReader = makeBuffered(reader);
+		REXP result = null;
+
+		try {
+			// execute script one line at a time
+			String line = null;
+			while ((line = bufReader.readLine()) != null) {
+
+				if (line.matches("^[^\\w]*" + COMMENT + ".*")) {
+					continue;
+				}
+				else if (line.matches(".*[\\w].*" + COMMENT + ".*")) {
+					// We need to strip out any comments, as they consume the newline
+					// character leading to incorrect script parsing.
+					line = line.substring(0, line.indexOf(COMMENT));
+
+					// Add escaped single quotes where needed
+					line = line.replaceAll("'", "\''");
+				}
+
+				result = rc.parseAndEval(line);
+			}
+		}
+		catch (final IOException e) {
+			log.error(e);
+		}
+		catch (final REngineException exc) {
+			log.error(exc);
+		}
+		catch (final REXPMismatchException exc) {
+			log.error(exc);
+		}
+		finally {
+			// Close the reader
+			try {
+				bufReader.close();
+			}
+			catch (final IOException e) {
+				log.error(e);
+			}
+		}
+
+		return result;
 	}
 
+	/**
+	 * @return A {@link BufferedReader} view of the provided {@link Reader}.
+	 */
+	private BufferedReader makeBuffered(final Reader reader) {
+		if (BufferedReader.class.isAssignableFrom(reader.getClass())) return (BufferedReader) reader;
+		return new BufferedReader(reader);
+	}
 }
