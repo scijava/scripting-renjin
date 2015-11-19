@@ -19,7 +19,6 @@
 	<description>JSR-223-compliant R scripting language plugin.</description>
 	<url>http://scijava.org/</url>
 	<inceptionYear>2011</inceptionYear>
-
 	<licenses>
 		<license>
 			<name>GNU General Public License v2+</name>
@@ -60,12 +59,10 @@
 		<tag>HEAD</tag>
 		<url>https://github.com/scijava/scripting-r</url>
 	</scm>
-
 	<issueManagement>
 		<system>GitHub Issues</system>
 		<url>https://github.com/scijava/scripting-r/issues</url>
 	</issueManagement>
-
 	<ciManagement>
 		<system>Jenkins</system>
 		<url>http://jenkins.imagej.net/job/scripting-R/</url>
@@ -126,5 +123,4 @@ Wisconsin-Madison.</organizationName>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
