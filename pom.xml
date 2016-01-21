@@ -8,17 +8,17 @@
 	<parent>
 		<groupId>org.scijava</groupId>
 		<artifactId>pom-scijava</artifactId>
-		<version>9.0.0</version>
+		<version>9.2.0</version>
 		<relativePath />
 	</parent>
 
-	<artifactId>scripting-r</artifactId>
+	<artifactId>scripting-renjin</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 
-	<name>SciJava Scripting: R</name>
-	<description>JSR-223-compliant R scripting language plugin.</description>
+	<name>SciJava Scripting: Renjin</name>
+	<description>SciJava wrapper around the Renjin R implementation.</description>
 	<url>http://scijava.org/</url>
-	<inceptionYear>2011</inceptionYear>
+	<inceptionYear>2015</inceptionYear>
 	<licenses>
 		<license>
 			<name>GNU General Public License v2+</name>
@@ -76,20 +76,20 @@
 		<connection>scm:git:git://github.com/scijava/scripting-r</connection>
 		<developerConnection>scm:git:git@github.com:scijava/scripting-r</developerConnection>
 		<tag>HEAD</tag>
-		<url>https://github.com/scijava/scripting-r</url>
+		<url>https://github.com/scijava/scripting-renjin</url>
 	</scm>
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/scijava/scripting-r/issues</url>
+		<url>https://github.com/scijava/scripting-renjin/issues</url>
 	</issueManagement>
 	<ciManagement>
 		<system>Jenkins</system>
-		<url>http://jenkins.imagej.net/job/scripting-R/</url>
+		<url>http://jenkins.imagej.net/job/scripting-renjin/</url>
 	</ciManagement>
 
 	<properties>
-		<REngine.version>2.1.0</REngine.version>
-		<Rserve.version>1.8.1</Rserve.version>
+		<scijava.jvm.version>1.8</scijava.jvm.version>
+		<renjin-script.version>0.8.1891</renjin-script.version>
 	</properties>
 
 	<dependencies>
@@ -101,14 +101,9 @@
 
 		<!-- Third party dependencies -->
 		<dependency>
-			<groupId>org.rosuda.REngine</groupId>
-			<artifactId>REngine</artifactId>
-			<version>${REngine.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.rosuda.REngine</groupId>
-			<artifactId>Rserve</artifactId>
-			<version>${Rserve.version}</version>
+			<groupId>org.renjin</groupId>
+			<artifactId>renjin-script-engine</artifactId>
+			<version>${renjin-script.version}</version>
 		</dependency>
 
 		<!-- Test dependencies -->
@@ -119,6 +114,12 @@
 		</dependency>
 	</dependencies>
 
+	<repositories>
+		<repository>
+			<id>imagej.public</id>
+			<url>http://maven.imagej.net/content/groups/public/</url>
+		</repository>
+	</repositories>
 	<build>
 		<plugins>
 			<plugin>
