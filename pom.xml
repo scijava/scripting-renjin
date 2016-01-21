@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-		http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0   http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -13,7 +10,7 @@
 	</parent>
 
 	<artifactId>scripting-renjin</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.0</version>
 
 	<name>SciJava Scripting: Renjin</name>
 	<description>SciJava wrapper around the Renjin R implementation.</description>
@@ -75,7 +72,7 @@
 	<scm>
 		<connection>scm:git:git://github.com/scijava/scripting-r</connection>
 		<developerConnection>scm:git:git@github.com:scijava/scripting-r</developerConnection>
-		<tag>HEAD</tag>
+		<tag>scripting-renjin-0.1.0</tag>
 		<url>https://github.com/scijava/scripting-renjin</url>
 	</scm>
 	<issueManagement>
