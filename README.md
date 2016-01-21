@@ -1,12 +1,9 @@
-[![](http://jenkins.imagej.net/job/scripting-R/lastBuild/badge/icon)](http://jenkins.imagej.net/job/scripting-R/)
+[![](http://jenkins.imagej.net/job/scripting-R/lastBuild/badge/icon)](http://jenkins.imagej.net/job/scripting-renjin/)
 
-# R Scripting
+# Renjin Scripting
 
-__NB: This library is an experimental work in progress. Not yet functional!__
-
-This library provides a
-[JSR-223-compliant](https://en.wikipedia.org/wiki/Scripting_for_the_Java_Platform)
-scripting plugin for the [R](http://www.r-project.org/) language.
+This library provides a scripting plugin wrapping the [Renjin](http://www.renjin.org/)
+Java implementation of the [R](http://www.r-project.org/) language.
 
 It is implemented as a `ScriptLanguage` plugin for the [SciJava
 Common](https://github.com/scijava/scijava-common) platform, which means that
@@ -22,18 +19,15 @@ the SciJava Common wiki.
 -----
 
 Here is an example annotated R script:
-```
-# @String label
-# @OUTPUT String version
-version = paste("[", label, "] ", R.version.string, sep = "")
+```R
+# @ScriptService ss
+# @OUTPUT String name
+language <- ss$getLanguageByName('R')
+name <- language$languageName
 ```
 
-Outstanding issues:
+Known limitations or quirks:
 
-* Fix bug where `DisplayPostprocessor` thinks output is null
-* Support multiple output values
-* Compare this Rserve-based solution to one using rJava
-* Eliminate FIXME blocks
-  - Reduce redundancy of "bindings" code across scripting languages
-  - Implement get/set variable methods properly for R
-* Add support for Dataset, DatasetView, ImageDisplay
+* Variables outside the Global environment scope may not persist after the script runs. If you need to access a variable after running the script, it is safer to use global assignment ("<<-" or "assign()");
+* "Bean" accessors (obj$getName(), reutrns local variable "name") may automatically be stripped out, requiring access via "obj$name".
+* Methods of Java objects must be referrenced via the dollar functions (obj$function)
