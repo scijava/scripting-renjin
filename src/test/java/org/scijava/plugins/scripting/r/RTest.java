@@ -82,7 +82,7 @@ public class RTest {
 		final ScriptModule m = scriptService.run("sjc.r", script, true).get();
 
 		final Object actual = m.getOutput("language");
-		assertEquals(scriptService.getLanguageByName("R").getClass(), actual.getClass());
+		assertEquals(scriptService.getLanguageByName("Renjin").getClass(), actual.getClass());
 	}
 
 	@Test
@@ -111,12 +111,12 @@ public class RTest {
 		final String script = "" + //
 				"# @ScriptService ss\n" + //
 				"# @OUTPUT String name\n" + //
-				"language <- ss$getLanguageByName('R')\n" + //
+				"language <- ss$getLanguageByName('Renjin')\n" + //
 				"name <- language$languageName\n";
 		final ScriptModule m = scriptService.run("hello.r", script, true).get();
 
 		final Object actual = m.getOutput("name");
-		final String expected = scriptService.getLanguageByName("R").getLanguageName();
+		final String expected = scriptService.getLanguageByName("Renjin").getLanguageName();
 		assertEquals(expected, actual);
 	}
 

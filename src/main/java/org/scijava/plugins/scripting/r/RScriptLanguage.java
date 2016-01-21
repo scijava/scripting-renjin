@@ -40,7 +40,7 @@ import org.scijava.script.ScriptLanguage;
  * @author Curtis Rueden
  * @see ScriptEngine
  */
-@Plugin(type = ScriptLanguage.class, name = "R")
+@Plugin(type = ScriptLanguage.class, name = "Renjin")
 public class RScriptLanguage extends AbstractScriptLanguage {
 
 	private final RenjinScriptEngineFactory factory = new RenjinScriptEngineFactory();
