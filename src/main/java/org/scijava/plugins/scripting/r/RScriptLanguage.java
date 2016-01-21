@@ -29,6 +29,7 @@ import java.util.List;
 import javax.script.ScriptEngine;
 
 import org.renjin.script.RenjinScriptEngineFactory;
+import org.renjin.sexp.SEXP;
 import org.scijava.plugin.Plugin;
 import org.scijava.script.AbstractScriptLanguage;
 import org.scijava.script.ScriptLanguage;

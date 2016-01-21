@@ -23,6 +23,13 @@
 
 package org.scijava.plugins.scripting.r;
 
+import org.renjin.sexp.DoubleArrayVector;
+import org.renjin.sexp.ExternalPtr;
+import org.renjin.sexp.IntArrayVector;
+import org.renjin.sexp.LogicalArrayVector;
+import org.renjin.sexp.SEXP;
+import org.renjin.sexp.StringArrayVector;
+
 /**
  * Utility methods for use with R scripts.
  *

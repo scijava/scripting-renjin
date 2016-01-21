@@ -37,6 +37,7 @@ import javax.script.ScriptException;
 
 import org.junit.Test;
 import org.renjin.script.RenjinScriptEngine;
+import org.renjin.sexp.SEXP;
 import org.scijava.Context;
 import org.scijava.script.ScriptLanguage;
 import org.scijava.script.ScriptModule;
