@@ -29,5 +29,5 @@ name <- language$languageName
 Known limitations or quirks:
 
 * Variables outside the Global environment scope may not persist after the script runs. If you need to access a variable after running the script, it is safer to use global assignment ("<<-" or "assign()");
-* "Bean" accessors (obj$getName(), reutrns local variable "name") may automatically be stripped out, requiring access via "obj$name".
+* "Bean" properties can be accessed via both the getter (`obj$getName()`) or as property (`obj$name`)
 * Methods of Java objects must be referrenced via the dollar functions (obj$function)
