@@ -86,7 +86,7 @@
 
 	<properties>
 		<scijava.jvm.version>1.8</scijava.jvm.version>
-		<renjin-script.version>0.8.1891</renjin-script.version>
+		<renjin-script.version>0.8.1906</renjin-script.version>
 	</properties>
 
 	<dependencies>
