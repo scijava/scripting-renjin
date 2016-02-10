@@ -58,21 +58,17 @@ public final class RUtils {
 			// array by reference
 			if (value instanceof IntArrayVector) {
 				final int[] iArray = ((IntArrayVector) value).toIntArray();
-				if (iArray.length == 1)
-					return iArray[0];
+				return iArray.length == 1 ? iArray[0] : iArray;
 			} else if (value instanceof DoubleArrayVector) {
 				final double[] dArray = ((DoubleArrayVector) value).toDoubleArray();
-				if (dArray.length == 1)
-					return dArray[0];
+				return dArray.length == 1 ? dArray[0]: dArray;
 			} else if (value instanceof LogicalArrayVector) {
 				// consider wrapping to boolean[] ?
 				final int[] lArray = ((LogicalArrayVector) value).toIntArray();
-				if (lArray.length == 1)
-					return lArray[0];
+				return lArray.length == 1 ? lArray[0]: lArray;
 			} else if (value instanceof StringArrayVector) {
 				final String[] sArray = ((StringArrayVector) value).toArray();
-				if (sArray.length == 1)
-					return sArray[0];
+				return sArray.length == 1 ? sArray[0]: sArray;
 			} else if (value instanceof ExternalPtr<?>) {
 				return ((ExternalPtr<?>) value).getInstance();
 			}
