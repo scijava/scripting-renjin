@@ -21,7 +21,7 @@
  * #L%
  */
 
-package org.scijava.plugins.scripting.r;
+package org.scijava.plugins.scripting.renjin;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +41,7 @@ import org.scijava.script.ScriptLanguage;
  * @see ScriptEngine
  */
 @Plugin(type = ScriptLanguage.class, name = "R")
-public class RScriptLanguage extends AbstractScriptLanguage {
+public class RenjinScriptLanguage extends AbstractScriptLanguage {
 
 	private final RenjinScriptEngineFactory factory = new RenjinScriptEngineFactory();
 
@@ -64,7 +64,7 @@ public class RScriptLanguage extends AbstractScriptLanguage {
 	public Object decode(final Object object) {
 		// TODO if externalptr need to convert back to Java object
 		if (object instanceof SEXP)
-			return RUtils.getJavaValue((SEXP) object);
+			return RenjinUtils.getJavaValue((SEXP) object);
 		return object;
 	}
 

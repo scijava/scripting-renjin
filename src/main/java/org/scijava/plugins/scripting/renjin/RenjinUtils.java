@@ -21,7 +21,7 @@
  * #L%
  */
 
-package org.scijava.plugins.scripting.r;
+package org.scijava.plugins.scripting.renjin;
 
 import org.renjin.sexp.DoubleArrayVector;
 import org.renjin.sexp.ExternalPtr;
@@ -36,7 +36,7 @@ import org.renjin.sexp.StringArrayVector;
  * @author Curtis Rueden
  * @author Mark Hiner
  */
-public final class RUtils {
+public final class RenjinUtils {
 
 	/**
 	 * Extracts a value from the specified R variable.

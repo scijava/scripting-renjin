@@ -21,7 +21,7 @@
  * #L%
  */
 
-package org.scijava.plugins.scripting.r;
+package org.scijava.plugins.scripting.renjin;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -39,6 +39,7 @@ import org.junit.Test;
 import org.renjin.script.RenjinScriptEngine;
 import org.renjin.sexp.SEXP;
 import org.scijava.Context;
+import org.scijava.plugins.scripting.renjin.RenjinUtils;
 import org.scijava.script.ScriptLanguage;
 import org.scijava.script.ScriptModule;
 import org.scijava.script.ScriptService;
@@ -48,7 +49,7 @@ import org.scijava.script.ScriptService;
  *
  * @author Curtis Rueden
  */
-public class RTest {
+public class RenjinTest {
 
 	@Test
 	public void testBasic() throws InterruptedException, ExecutionException, IOException, ScriptException {
@@ -74,10 +75,11 @@ public class RTest {
 	public void testSciJava() throws InterruptedException, ExecutionException, IOException, ScriptException {
 		final Context context = new Context(ScriptService.class);
 		final ScriptService scriptService = context.getService(ScriptService.class);
+		final String langClass = RenjinScriptLanguage.class.getName();
 		final String script = "" + //
-				"# @OUTPUT org.scijava.plugins.scripting.r.RScriptLanguage language\n" + //
-				"import(org.scijava.plugins.scripting.r.RScriptLanguage)\n" + //
-				"language <<- RScriptLanguage$new()\n" + //
+				"# @OUTPUT " + langClass + " language\n" + //
+				"import(" + langClass + ")\n" + //
+				"language <<- RenjinScriptLanguage$new()\n" + //
 				"print(language$engineName)\n";
 		final ScriptModule m = scriptService.run("sjc.r", script, true).get();
 
@@ -94,13 +96,13 @@ public class RTest {
 		final ScriptEngine engine = language.getScriptEngine();
 		assertEquals(RenjinScriptEngine.class, engine.getClass());
 		engine.put("hello", 17);
-		assertEquals(17, RUtils.getJavaValue((SEXP) engine.eval("hello")));
-		assertEquals(17, RUtils.getJavaValue((SEXP) engine.get("hello")));
+		assertEquals(17, RenjinUtils.getJavaValue((SEXP) engine.eval("hello")));
+		assertEquals(17, RenjinUtils.getJavaValue((SEXP) engine.get("hello")));
 
 		final Bindings bindings = engine.getBindings(ScriptContext.ENGINE_SCOPE);
 		bindings.clear();
-		assertNull(RUtils.getJavaValue((SEXP) engine.get("hello")));
-		assertNull(RUtils.getJavaValue((SEXP) engine.get("polar_kraken")));
+		assertNull(RenjinUtils.getJavaValue((SEXP) engine.get("hello")));
+		assertNull(RenjinUtils.getJavaValue((SEXP) engine.get("polar_kraken")));
 	}
 
 	@Test
