@@ -23,15 +23,11 @@
 
 package org.scijava.plugins.scripting.renjin;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.script.ScriptEngine;
 
-import org.renjin.script.RenjinScriptEngineFactory;
 import org.renjin.sexp.SEXP;
 import org.scijava.plugin.Plugin;
-import org.scijava.script.AbstractScriptLanguage;
+import org.scijava.script.AdaptedScriptLanguage;
 import org.scijava.script.ScriptLanguage;
 
 /**
@@ -41,23 +37,10 @@ import org.scijava.script.ScriptLanguage;
  * @see ScriptEngine
  */
 @Plugin(type = ScriptLanguage.class, name = "R")
-public class RenjinScriptLanguage extends AbstractScriptLanguage {
+public class RenjinScriptLanguage extends AdaptedScriptLanguage {
 
-	private final RenjinScriptEngineFactory factory = new RenjinScriptEngineFactory();
-
-	@Override
-	public List<String> getExtensions() {
-		return Arrays.asList("r");
-	}
-
-	@Override
-	public String getEngineName() {
-		return factory.getEngineName();
-	}
-
-	@Override
-	public ScriptEngine getScriptEngine() {
-		return factory.getScriptEngine();
+	public RenjinScriptLanguage() {
+		super("Renjin");
 	}
 
 	@Override
