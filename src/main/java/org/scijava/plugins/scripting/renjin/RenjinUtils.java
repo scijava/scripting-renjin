@@ -41,8 +41,7 @@ public final class RenjinUtils {
 	/**
 	 * Extracts a value from the specified R variable.
 	 *
-	 * @param value
-	 *            The R value to decode.
+	 * @param value The R value to decode.
 	 */
 	public static Object getJavaValue(final SEXP value) {
 		if (value == null || value == org.renjin.sexp.Symbol.UNBOUND_VALUE)
@@ -50,34 +49,34 @@ public final class RenjinUtils {
 
 		try {
 			// R has no concept of scalars, so if we have a length 1 int or
-			// double
-			// array we should unwrap it
+			// double array we should unwrap it
 
 			// TODO consider using unsafe returns instead - they return the
-			// underlying
-			// array by reference
+			// underlying array by reference
 			if (value instanceof IntArrayVector) {
 				final int[] iArray = ((IntArrayVector) value).toIntArray();
 				return iArray.length == 1 ? iArray[0] : iArray;
-			} else if (value instanceof DoubleArrayVector) {
+			}
+			else if (value instanceof DoubleArrayVector) {
 				final double[] dArray = ((DoubleArrayVector) value).toDoubleArray();
-				return dArray.length == 1 ? dArray[0]: dArray;
-			} else if (value instanceof LogicalArrayVector) {
+				return dArray.length == 1 ? dArray[0] : dArray;
+			}
+			else if (value instanceof LogicalArrayVector) {
 				// consider wrapping to boolean[] ?
 				final int[] lArray = ((LogicalArrayVector) value).toIntArray();
-				return lArray.length == 1 ? lArray[0]: lArray;
-			} else if (value instanceof StringArrayVector) {
+				return lArray.length == 1 ? lArray[0] : lArray;
+			}
+			else if (value instanceof StringArrayVector) {
 				final String[] sArray = ((StringArrayVector) value).toArray();
-				return sArray.length == 1 ? sArray[0]: sArray;
-			} else if (value instanceof ExternalPtr<?>) {
+				return sArray.length == 1 ? sArray[0] : sArray;
+			}
+			else if (value instanceof ExternalPtr<?>) {
 				return ((ExternalPtr<?>) value).getInstance();
 			}
 
 			return value;
-		} catch (final Exception exc) {
-			// throw new IllegalArgumentException("Incompatible R expression: "
-			// +
-			// object);
+		}
+		catch (final Exception exc) {
 			return value.toString();
 		}
 	}
