@@ -46,6 +46,9 @@
 			<roles><role>founder</role></roles>
 			<properties><id>hinerm</id></properties>
 		</contributor>
+		<contributor>
+			<name>Alex Bertram</name>
+		</contributor>
 	</contributors>
 
 	<scm>
