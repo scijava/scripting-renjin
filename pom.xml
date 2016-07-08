@@ -52,8 +52,8 @@
 	</contributors>
 
 	<scm>
-		<connection>scm:git:git://github.com/scijava/scripting-r</connection>
-		<developerConnection>scm:git:git@github.com:scijava/scripting-r</developerConnection>
+		<connection>scm:git:git://github.com/scijava/scripting-renjin</connection>
+		<developerConnection>scm:git:git@github.com:scijava/scripting-renjin</developerConnection>
 		<tag>HEAD</tag>
 		<url>https://github.com/scijava/scripting-renjin</url>
 	</scm>
