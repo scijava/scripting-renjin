@@ -106,7 +106,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<packageName>org.scijava.plugins.scripting.r</packageName>
+							<packageName>org.scijava.plugins.scripting.renjin</packageName>
 						</manifest>
 					</archive>
 				</configuration>
