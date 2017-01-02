@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.scijava</groupId>
 		<artifactId>pom-scijava</artifactId>
-		<version>11.0.0</version>
+		<version>12.0.0</version>
 		<relativePath />
 	</parent>
 
@@ -16,6 +16,10 @@
 	<description>SciJava wrapper around the Renjin R implementation.</description>
 	<url>http://scijava.org/</url>
 	<inceptionYear>2015</inceptionYear>
+	<organization>
+		<name>SciJava</name>
+		<url>http://scijava.org/</url>
+	</organization>
 	<licenses>
 		<license>
 			<name>GNU General Public License v2+</name>
@@ -51,6 +55,16 @@
 		</contributor>
 	</contributors>
 
+	<mailingLists>
+		<mailingList>
+			<name>SciJava</name>
+			<subscribe>https://groups.google.com/group/scijava</subscribe>
+			<unsubscribe>https://groups.google.com/group/scijava</unsubscribe>
+			<post>scijava.com</post>
+			<archive>https://groups.google.com/group/scijava</archive>
+		</mailingList>
+	</mailingLists>
+
 	<scm>
 		<connection>scm:git:git://github.com/scijava/scripting-renjin</connection>
 		<developerConnection>scm:git:git@github.com:scijava/scripting-renjin</developerConnection>
@@ -67,9 +81,19 @@
 	</ciManagement>
 
 	<properties>
-		<scijava.jvm.version>1.8</scijava.jvm.version>
+		<package-name>org.scijava.plugins.scripting.renjin</package-name>
+		<license.licenseName>gpl_v2</license.licenseName>
+		<license.copyrightOwners>Board of Regents of the University of
+Wisconsin-Madison.</license.copyrightOwners>
 		<renjin-script.version>0.8.1906</renjin-script.version>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>imagej.public</id>
+			<url>http://maven.imagej.net/content/groups/public/</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<!-- SciJava dependencies -->
@@ -92,34 +116,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<repositories>
-		<repository>
-			<id>imagej.public</id>
-			<url>http://maven.imagej.net/content/groups/public/</url>
-		</repository>
-	</repositories>
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<packageName>org.scijava.plugins.scripting.renjin</packageName>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<configuration>
-					<licenseName>gpl_v2</licenseName>
-					<organizationName>Board of Regents of the University of
-Wisconsin-Madison.</organizationName>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
