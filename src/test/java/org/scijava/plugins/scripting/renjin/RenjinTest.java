@@ -37,6 +37,7 @@ import javax.script.ScriptException;
 
 import org.junit.Test;
 import org.renjin.script.RenjinScriptEngine;
+import org.renjin.sexp.IntArrayVector;
 import org.renjin.sexp.SEXP;
 import org.scijava.Context;
 import org.scijava.plugins.scripting.renjin.RenjinUtils;
@@ -58,7 +59,10 @@ public class RenjinTest {
 		final String script = "as.integer(1) + as.integer(2)";
 		final ScriptModule m = scriptService.run("add.r", script, true).get();
 		final Object result = m.getReturnValue();
-		assertEquals("3", result.toString());
+		assertTrue(result instanceof IntArrayVector);
+		final IntArrayVector resultVector = (IntArrayVector) result;
+		assertEquals(1, resultVector.length());
+		assertEquals(3, resultVector.getElementAsInt(0));
 	}
 
 	@Test
