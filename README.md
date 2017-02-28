@@ -1,4 +1,4 @@
-[![](http://jenkins.imagej.net/job/scripting-renjin/lastBuild/badge/icon)](http://jenkins.imagej.net/job/scripting-renjin/)
+[![](https://travis-ci.org/scijava/scripting-renjin.svg?branch=master)](https://travis-ci.org/scijava/scripting-renjin)
 
 # Renjin Scripting
 
