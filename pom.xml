@@ -14,7 +14,7 @@
 
 	<name>SciJava Scripting: Renjin</name>
 	<description>SciJava wrapper around the Renjin R implementation.</description>
-	<url>http://scijava.org/</url>
+	<url>https://github.com/scijava/scripting-renjin</url>
 	<inceptionYear>2015</inceptionYear>
 	<organization>
 		<name>SciJava</name>
