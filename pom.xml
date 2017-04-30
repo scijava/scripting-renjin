@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>scripting-renjin</artifactId>
-	<version>0.2.2-SNAPSHOT</version>
+	<version>0.2.2</version>
 
 	<name>SciJava Scripting: Renjin</name>
 	<description>SciJava wrapper around the Renjin R implementation.</description>
@@ -68,7 +68,7 @@
 	<scm>
 		<connection>scm:git:git://github.com/scijava/scripting-renjin</connection>
 		<developerConnection>scm:git:git@github.com:scijava/scripting-renjin</developerConnection>
-		<tag>HEAD</tag>
+		<tag>scripting-renjin-0.2.2</tag>
 		<url>https://github.com/scijava/scripting-renjin</url>
 	</scm>
 	<issueManagement>
