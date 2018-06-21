@@ -82,13 +82,16 @@
 
 	<properties>
 		<package-name>org.scijava.plugins.scripting.renjin</package-name>
+
 		<license.licenseName>gpl_v2</license.licenseName>
 		<license.copyrightOwners>Board of Regents of the University of
 Wisconsin-Madison.</license.copyrightOwners>
-		<renjin-script.version>0.8.1906</renjin-script.version>
+		<license.excludes>**/script_templates/**</license.excludes>
 
 		<!-- NB: Deploy releases to the ImageJ Maven repository. -->
 		<releaseProfiles>deploy-to-imagej</releaseProfiles>
+
+		<renjin-script.version>0.8.1906</renjin-script.version>
 	</properties>
 
 	<repositories>
