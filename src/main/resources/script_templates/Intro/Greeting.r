@@ -1,5 +1,5 @@
-# @String name
-# @OUTPUT String greeting
+#@ String name
+#@output String greeting
 
 # A Renjin script with parameters.
 # It is the duty of the scripting framework to harvest

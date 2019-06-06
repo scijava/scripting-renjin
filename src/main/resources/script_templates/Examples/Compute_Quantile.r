@@ -1,5 +1,5 @@
-# @Dataset image
-# @OUTPUT double[] result
+#@ Dataset image
+#@output double[] result
 
 # get the image size
 size <- image$imgPlus$size()
