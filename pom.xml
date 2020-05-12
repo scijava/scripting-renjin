@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.scijava</groupId>
 		<artifactId>pom-scijava</artifactId>
-		<version>27.0.1</version>
+		<version>29.0.0-beta-3</version>
 		<relativePath />
 	</parent>
 
@@ -113,6 +113,20 @@ Wisconsin-Madison.</license.copyrightOwners>
 			<groupId>org.renjin</groupId>
 			<artifactId>renjin-script-engine</artifactId>
 			<version>${renjin-script.version}</version>
+			<exclusions>
+				<exclusion>
+					<!--
+					NB: We want to use SLF4J, not Apache Commons Logging (JCL).
+					See also: http://www.slf4j.org/legacy.html#jcl-over-slf4j
+					-->
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
 		</dependency>
 
 		<!-- Test dependencies -->
