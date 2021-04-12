@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.scijava</groupId>
 		<artifactId>pom-scijava</artifactId>
-		<version>29.0.0-beta-3</version>
+		<version>30.0.0</version>
 		<relativePath />
 	</parent>
 
@@ -91,7 +91,9 @@ Wisconsin-Madison.</license.copyrightOwners>
 		<!-- NB: Deploy releases to the SciJava Maven repository. -->
 		<releaseProfiles>deploy-to-scijava</releaseProfiles>
 
-		<renjin-script.version>0.8.1906</renjin-script.version>
+		<renjin.version>3.5-beta43</renjin.version>
+		<renjin-script-engine.version>${renjin.version}</renjin-script-engine.version>
+		<renjin-core.version>${renjin.version}</renjin-core.version>
 	</properties>
 
 	<repositories>
@@ -112,7 +114,12 @@ Wisconsin-Madison.</license.copyrightOwners>
 		<dependency>
 			<groupId>org.renjin</groupId>
 			<artifactId>renjin-script-engine</artifactId>
-			<version>${renjin-script.version}</version>
+			<version>${renjin-script-engine.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.renjin</groupId>
+			<artifactId>renjin-core</artifactId>
+			<version>${renjin-core.version}</version>
 			<exclusions>
 				<exclusion>
 					<!--
@@ -122,11 +129,16 @@ Wisconsin-Madison.</license.copyrightOwners>
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.renjin</groupId>
+					<artifactId>renjin-lapack</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- Test dependencies -->
