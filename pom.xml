@@ -91,17 +91,10 @@ Wisconsin-Madison.</license.copyrightOwners>
 		<!-- NB: Deploy releases to the SciJava Maven repository. -->
 		<releaseProfiles>deploy-to-scijava</releaseProfiles>
 
-		<renjin.version>3.5-beta43</renjin.version>
+		<renjin.version>3.5-beta76</renjin.version>
 		<renjin-script-engine.version>${renjin.version}</renjin-script-engine.version>
 		<renjin-core.version>${renjin.version}</renjin-core.version>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>scijava.public</id>
-			<url>https://maven.scijava.org/content/groups/public/</url>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<!-- SciJava dependencies -->
@@ -121,8 +114,7 @@ Wisconsin-Madison.</license.copyrightOwners>
 			<artifactId>renjin-core</artifactId>
 			<version>${renjin-core.version}</version>
 			<exclusions>
-				<exclusion>
-					<!--
+				<exclusion><!--
 					NB: We want to use SLF4J, not Apache Commons Logging (JCL).
 					See also: http://www.slf4j.org/legacy.html#jcl-over-slf4j
 					-->
@@ -148,4 +140,16 @@ Wisconsin-Madison.</license.copyrightOwners>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>scijava.public</id>
+			<url>https://maven.scijava.org/content/groups/public/</url>
+		</repository>
+		<repository>
+            <id>bedatadriven</id>
+            <name>bedatadriven public repo</name>
+            <url>https://nexus.bedatadriven.com/content/groups/public/</url>
+        </repository>
+    </repositories>
 </project>
