@@ -1,4 +1,4 @@
-[![](https://travis-ci.org/scijava/scripting-renjin.svg?branch=master)](https://travis-ci.org/scijava/scripting-renjin)
+[![](https://github.com/scijava/scripting-renjin/actions/workflows/build-main.yml/badge.svg)](https://github.com/scijava/scripting-renjin/actions/workflows/build-main.yml)
 
 # Renjin Scripting
 
