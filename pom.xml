@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>scripting-renjin</artifactId>
-	<version>0.2.4-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 
 	<name>SciJava Scripting: Renjin</name>
 	<description>SciJava wrapper around the Renjin R implementation.</description>
@@ -91,7 +91,8 @@ Wisconsin-Madison.</license.copyrightOwners>
 		<!-- NB: Deploy releases to the SciJava Maven repository. -->
 		<releaseProfiles>sign,deploy-to-scijava</releaseProfiles>
 
-		<renjin-script.version>0.8.1906</renjin-script.version>
+		<renjin-script-engine.version>3.5-beta76</renjin-script-engine.version>
+		<allowedDuplicateClasses>${scijava.allowedDuplicateClasses},org.renjin.math.*</allowedDuplicateClasses>
 	</properties>
 
 	<repositories>
@@ -112,7 +113,7 @@ Wisconsin-Madison.</license.copyrightOwners>
 		<dependency>
 			<groupId>org.renjin</groupId>
 			<artifactId>renjin-script-engine</artifactId>
-			<version>${renjin-script.version}</version>
+			<version>${renjin-script-engine.version}</version>
 			<exclusions>
 				<exclusion>
 					<!--
