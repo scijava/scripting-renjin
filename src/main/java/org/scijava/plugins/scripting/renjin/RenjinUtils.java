@@ -2,8 +2,7 @@
  * #%L
  * SciJava wrapper around the Renjin R implementation.
  * %%
- * Copyright (C) 2015 - 2017 Board of Regents of the University of
- * Wisconsin-Madison.
+ * Copyright (C) 2015 - 2023 SciJava developers.
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
